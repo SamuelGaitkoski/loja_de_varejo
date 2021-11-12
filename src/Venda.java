@@ -1,8 +1,26 @@
 import java.time.LocalDate;
-import java.util.List;
 
 public class Venda {
     public LocalDate dataVenda;
     public LocalDate dataEntrega;
-    public List<String> produtosVendidos;
+    public String produto;
+
+    //construtores
+    public Venda() {
+        this.dataVenda = LocalDate.now();
+     }
+
+    public Venda(String produto) {
+        this.produto = produto;
+        this.dataVenda = LocalDate.now();
+    }
+
+    public Venda(String produto, LocalDate dataVenda, LocalDate dataEntrega) {
+        this.produto = produto;
+        this.dataVenda = dataVenda;
+        this.dataEntrega = dataEntrega;
+    }
 }
+
+
+
