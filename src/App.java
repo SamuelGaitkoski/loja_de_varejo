@@ -1,71 +1,90 @@
 import java.time.LocalDate;
 
+import controller.ClienteController;
+import controller.FornecedorController;
+import controller.ProdutoController;
+import controller.VendedorController;
+import model.Cliente;
+import model.Fornecedor;
+import model.Produto;
+import model.Vendedor;
+
 public class App {
     public static void main(String[] args) {
 
-        //Endereco
-        Endereco endereco1 = new Endereco("Martin Luther", "421", "Illinois", "Santiago", "Alabama", "45969-000");
-        Endereco endereco2 = new Endereco("Ambarino", "2018", "New Hanover", "Valentine", "New Austin", "26903-000");
+        //criando um vendedor para consumir nossa API
+        VendedorController vendedorController = new VendedorController();
+        //cadastrar
+        var vendedor1 = new Vendedor(1, "Samuel", "000.000.989-05", "4100000000", "Vendedor", 1500.50f, 8, "Rua Antonio, n° 29");
+        vendedorController.cadastrar(vendedor1);
+        //buscar
+        var buscaVendedor = vendedorController.buscar(1);
+        if(buscaVendedor.isPresent()) {
+            var obj = buscaVendedor.get();
+            System.out.println(obj.getNome());
+        } else {
+            System.out.println("O vendedor não existe");
+        }
+        //atualizar
+        vendedorController.atualizar(vendedor1);
+        //remover
+        vendedorController.remover(1);
 
-        System.out.println(endereco1.getEndereco().toUpperCase());
-        System.out.println(endereco2.getEndereco());
-        System.out.println();
 
-        //Venda
-        var venda01 = new Venda("Camiseta");
-        var venda02 = new Venda(null, null, null);
-        var venda03 = new Venda("Tenis", LocalDate.of(2021, 11, 01), LocalDate.of(2019, 12, 20));
-        var vendaInvalida01 = new Venda();
+        //criando um cliente para consumir nossa API
+        ClienteController clienteController = new ClienteController();
+        //cadastrar
+        var cliente1 = new Cliente(1, "Samuel Gaitkoski", "000.000.989-05", "4100000000", "Rua da Silva, Bairro Comunnhão", "samuel.gaitkoski@gmail.com");
+        clienteController.cadastrar(cliente1);
+        //buscar
+        var buscaCliente = clienteController.buscar(1);
+        if(buscaCliente.isPresent()) {
+            var obj = buscaCliente.get();
+            System.out.println(obj.getNome());
+        } else {
+            System.out.println("O fornecedor não existe");
+        }
+        //atualizar
+        clienteController.atualizar(cliente1);
+        //remover
+        clienteController.remover(1);
 
-        System.out.println();
-        System.out.println(venda01.produto);
-        System.out.println(venda01.dataVenda);
-        System.out.println(venda02.dataVenda);
-        System.out.printf("O produto vendido foi %s, venda realizada em: %s, entrega realizada em: %s", venda03.produto, 
-        venda03.dataVenda, venda03.dataEntrega);
-        System.out.println();
-        System.out.println(vendaInvalida01.produto);
 
-        //Transportadora
-        var transportadora01 = new Transportadora("Expresso São Miguel");
-        var transportadora02 = new Transportadora(null);
-        System.out.println();
-        System.out.println(transportadora01.nome);
-        System.out.println(transportadora02.nome);
+        //criando um fornecedor para consumir nossa API
+        FornecedorController fornecedorController = new FornecedorController();
+        //cadastrar
+        var fornecedor1 = new Fornecedor(1, "Nike", "0000000000001", "Rua Conceição", "Camiseta");
+        fornecedorController.cadastrar(fornecedor1);
+        //buscar
+        var buscaFornecedor = fornecedorController.buscar(1);
+        if(buscaFornecedor.isPresent()) {
+            var obj = buscaFornecedor.get();
+            System.out.println(obj.getNome());
+        } else {
+            System.out.println("O fornecedor não existe");
+        }
+        //atualizar
+        fornecedorController.atualizar(fornecedor1);
+        //remover
+        fornecedorController.remover(1);
 
-        //Vendedor
-        var vendedor01 = new Vendedor("Cléber", "062.037.123-00", "5612008978", "Vendedor", 3000.50f, 8, "Rua José da Silva, 310, Bairro Concórdia, Cidade São Lourenço, Maranhão/BA");
-        var vendedor02 = new Vendedor(null);
 
-        System.out.println();
-        System.out.printf("O funcionário %s, de cpf %s, de rg %s, cujo cargo é de %s, e salário é de R$%f, e carga horária é de %d horas, mora na %s", vendedor01.nome, vendedor01.cpf, vendedor01.rg, vendedor01.cargo, vendedor01.salario, vendedor01.cargaHoraria, vendedor01.endereco);
-        System.out.println();
-        System.out.println(vendedor02.nome);
-
-        //Cliente
-        var cliente01 = new Cliente("Alexandre", "032.415.845-20", "9687023256", "Rua das Hortências, n° 119, bairro Rodrigues, Gravataí/RS", "alexandre2017@gmail.com");
-
-        System.out.println();
-        System.out.printf("%s - %s - %s - %s - %s", cliente01.nome, cliente01.cpf, cliente01.rg, cliente01.endereco, cliente01.email);
-
-        //Fornecedor
-        var fornecedor01 = new Fornecedor("Renner", "69.020.130/0001-92", "Rua Osvaldino, n° 25, bairro João da Rosa, cidade Canoas/RS", "Vestuário masculino e feminino");
-        var fornecedor02 = new Fornecedor("Cavalera Ltda.", "Camiseta");
-
-        System.out.println();
-        System.out.println();
-        System.out.printf("%s - %s - %s - %s", fornecedor01.nome, fornecedor01.cnpj, fornecedor01.endereco, fornecedor01.produto);
-        System.out.println();
-        System.out.printf("%s - %s", fornecedor02.nome, fornecedor02.produto);
-
-        //Produto
-        var produto01 = new Produto("Calça", "Marfinno", "Preto", "Algodão", 150.00f, LocalDate.of(2019, 06, 17));
-        var produto02 = new Produto("Camisa");
-
-        System.out.println();
-        System.out.println();
-        System.out.printf("%s - %s - %s - %s - %.2f - %s", produto01.nome, produto01.marca, produto01.cor, produto01.material, produto01.preco, produto01.dataFabricacao);
-        System.out.println();
-        System.out.printf("%s - %s", produto02.nome, produto02.dataFabricacao);
+        //criando um produto para consumir nossa API
+        ProdutoController produtoController = new ProdutoController();
+        //cadastrar
+        var produto1 = new Produto(1, "Camiseta Training", "Nike", "Preto", "Dry-Fit", 90.65f, LocalDate.of(2021, 9, 16));
+        produtoController.cadastrar(produto1);
+        //buscar
+        var buscaProduto = produtoController.buscar(1);
+        if(buscaProduto.isPresent()) {
+            var obj = buscaProduto.get();
+            System.out.println(obj.getNome());
+        } else {
+            System.out.println("O produto não existe");
+        }
+        //atualizar
+        produtoController.atualizar(produto1);
+        //remover
+        produtoController.remover(1);
     }
 }
